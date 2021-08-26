@@ -15,10 +15,11 @@ app.post(
   "/users",
   [
     body("name")
+      .trim()
       .isLength({ min: 2 })
       .withMessage("Name should be more than 2 letters!"),
     body("age").notEmpty().isInt().withMessage("Age must be number!"),
-    body("email").isEmail(),
+    body("email").isEmail().normalizeEmail(),
     validate,
   ],
   (req, res, next) => {
