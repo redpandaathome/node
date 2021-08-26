@@ -4,6 +4,13 @@ import { body, param, validationResult } from "express-validator";
 const app = express();
 app.use(express.json());
 
+const validate = (req, res, next) => {
+  const errors = validationResult(req);
+  if (errors.isEmpty()) {
+    return next();
+  }
+  return res.status(400).json({ message: errors.array()[0].msg });
+};
 app.post(
   "/users",
   [
@@ -12,25 +19,18 @@ app.post(
       .withMessage("Name should be more than 2 letters!"),
     body("age").notEmpty().isInt().withMessage("Age must be number!"),
     body("email").isEmail(),
+    validate,
   ],
   (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      console.log("errors is not empty!");
-      return res.status(400).json({ message: errors.array() });
-    }
+    console.log(req.body);
     res.sendStatus(201);
   }
 );
 
 app.get(
   "/:email",
-  param("email").isEmail().withMessage("Wrong email form"),
+  [param("email").isEmail().withMessage("Wrong email form"), validate],
   (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ message: errors.array() });
-    }
     res.send("💌");
   }
 );
