@@ -10,9 +10,11 @@ function getCount() {
 
 module.exports.getCount = getCount;
 // module.exports.increase = increase;
-console.log(module.exports === exports )
+
+//module.exports.getCount === exports.getCount in the beginning!
+console.log(module.exports === exports ) // SAME
 exports = {}
-console.log(module.exports === exports )
+console.log(module.exports === exports ) // NOT SAME ANYMORE
 
 exports.increase = increase;
 console.log("🌝",module);
