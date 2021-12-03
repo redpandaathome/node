@@ -5,3 +5,8 @@ const hashed = bcrypt.hashSync(password, 10);
 console.log(`password:${password}, hashed: ${hashed}`, );
 const result = bcrypt.compareSync(password, hashed)
 console.log(`result`, result);
+
+
+// better to use promises.
+// hashSync > hash
+// compareSync > compare

@@ -2,7 +2,8 @@
 const jwt = require("jsonwebtoken");
 
 const secret = "yTTzR&QsT5nTAOEVC4vi%O0PxTiZPhsh";
-//https://www.lastpass.com/features/password-generator
+//https://www.lastpass.com/features/password-generator 
+//recommended character length 32characters(32bytes) -> 256bits
 const token = jwt.sign(
   {
     id: "ellie",
@@ -11,8 +12,12 @@ const token = jwt.sign(
   secret,
   { expiresIn: 2 }
 );
-
+jwt.sign
 console.log(`token:`, token);
+
+//https://jwt.io shows decoded data except secret key
+
+
 const edited =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVsbGllIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjMwMDQ2MjgyfQ.XGvvUzbXt_fQ7uvYZYcoh0GLNp-nKwD3ptGJACqILpM";
 
